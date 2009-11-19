@@ -22,6 +22,8 @@ Options.prototype = {
     this.jqPollingIntervalReset = $('#resetPollingInterval');
 
     this.jqSave                 = $('#save');
+		this.jqReset                = $('#reset');
+		this.jqClose                = $('#close');
   },
 
   registerEvents: function () {
@@ -33,9 +35,10 @@ Options.prototype = {
     this.jqPollingIntervalReset.click(function () {
       self.resetPollingInterval();
     });
-    this.jqSave.click(function () {
-      self.save();
-    });
+
+    this.jqSave.click(function () { self.save(); });
+		this.jqReset.click(function () { self.reset(); });
+		this.jqClose.click(function () { self.close(); });
   },
 
   restore: function () {
@@ -63,6 +66,7 @@ Options.prototype = {
   resetPollingInterval: function () {
     this.jqPollingInterval.val(this.DEFAULT_POLLING_INTERVAL);
   },
+
   save: function () {
     var username        = $.trim(this.jqUsername.val());
     var password        = $.trim(this.jqPassword.val());
@@ -89,6 +93,22 @@ Options.prototype = {
     localStorage.pollingInterval = pollingInterval;
 
     localStorage.set             = true;
+  },
+
+  reset: function () {
+		delete(localStorage.username);
+		delete(localStorage.password);
+		delete(localStorage.apiUrl);
+		delete(localStorage.pollingInterval);
+		delete(localStorage.set);
+
+		this.restore();
+  },
+
+  close: function () {
+		chrome.tabs.getSelected(null, function (tab) {
+			chrome.tabs.remove(tab.id);
+		});
   }
 };
 

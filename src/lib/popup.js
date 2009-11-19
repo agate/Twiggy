@@ -7,14 +7,11 @@ Popup.prototype = {
     this.initHTML();
     this.registerEvents();
     this.loadFriendsTimeline();
-
-    chrome.browserAction.setBadgeBackgroundColor({ color: [0, 255, 0, 255] });
-    chrome.browserAction.setBadgeText({ text: '0' });
   },
 
   initHTML: function () {
     this.jqOptions         = $('#options');
-    this.jqLoading         = $('#loading');
+    this.jqStatus          = $('#status');
     this.jqFriendsTimeline = $('#friendsTimeline');
     this.jqUpdate          = $('#update');
 
@@ -32,16 +29,29 @@ Popup.prototype = {
   },
 
   loadFriendsTimeline: function () {
-    var html = '';
-    var data = this.background.friendsTimelineData;
+    var html  = '';
+    var data  = this.background.friendsTimelineData;
+    var error = this.background.error;
 
     if (data.length > 0) {
-      this.jqLoading.hide();
+      this.jqStatus.hide();
+      this.jqUpdate.show();
+
+      chrome.browserAction.setBadgeBackgroundColor({ color: [0, 255, 0, 255] });
+      chrome.browserAction.setBadgeText({ text: '0' });
     } else {
-      var self = this;
-      this.loadingTimer = setTimeout(function () {
-        self.loadFriendsTimeline();
-      }, 500);
+      this.jqStatus.show();
+      this.jqUpdate.hide();
+
+      if (! localStorage.set) {
+        this.jqStatus.html('please set username and password first!');
+      } else {
+        this.jqStatus.html('loading...');
+        var self = this;
+        this.loadingTimer = setTimeout(function () {
+          self.loadFriendsTimeline();
+        }, 500);
+      }
       return;
     }
 
