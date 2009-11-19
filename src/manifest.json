@@ -1,0 +1,22 @@
+{
+  "name": "Twiggy",
+  "version": "1.0",
+  "description": "Twitter Chrome Extension By agate",
+  "browser_action": {
+    "default_icon":  "img/icon-message.png",
+    "default_title": "Twiggy",
+    "popup":         "popup.html"
+  },
+  "icons": {
+    "16": "img/icon-message.png",
+    "32": "img/icon-message.png",
+    "48": "img/icon-message.png"
+  },
+  "background_page": "background.html",
+  "options_page": "options.html",
+  "permissions": [
+    "tabs",
+    "http://twitter.com/",
+    "https://twitter.com/"
+  ]
+}

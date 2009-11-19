@@ -1,0 +1,51 @@
+body, ul {
+  font-family: arial,sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+#friendsTimeline {
+  font-size: 90%;
+  width: 320px;
+  max-height: 360px;
+  list-style: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-bottom: 1px dashed #666;
+	margin-bottom: 10px;
+}
+
+#friendsTimeline li {
+  border-top: 1px dashed #666;
+}
+
+#friendsTimeline li:hover {
+  background-color: #eff7ff;
+}
+
+#friendsTimeline img {
+  width: 32px;
+  height: 32px;
+}
+
+#friendsTimeline .from {
+	color: gray;
+	text-align: right;
+	display: block;
+  font-size: 70%;
+	font-weight: bold;
+}
+#friendsTimeline .from a, #friendsTimeline .from a:visited {
+	color: gray;
+  text-decoration: none;
+}
+
+#update {
+	height: 50px;
+	width: 100%;
+	display: block;
+}
+
+#options {
+	float: right;
+}
